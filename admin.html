@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel — RPM Motor Works</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>" />
+</head>
+
+<body>
+
+    <!-- ========================================
+       LOGIN PAGE
+       ======================================== -->
+    <div id="auth-page">
+        <div class="auth-card">
+            <div class="auth-logo">RPM Motor Works</div>
+            <div class="auth-sub">Admin Portal</div>
+            <h1 class="auth-title">Welcome back</h1>
+            <p class="auth-hint">Sign in to manage your bookings dashboard.</p>
+
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label for="admin-email">Email Address</label>
+                    <input type="email" id="admin-email" placeholder="admin@rpmmotorworkks.com" autocomplete="email"
+                        required />
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" placeholder="••••••••" autocomplete="current-password"
+                        required />
+                </div>
+                <button type="submit" class="btn-gold" id="loginBtn">Sign In to Dashboard</button>
+                <div class="auth-error" id="loginError"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================
+       DASHBOARD PAGE
+       ======================================== -->
+    <div id="dashboard-page">
+
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-brand">
+                <div class="brand-name">RPM Motor Works</div>
+                <div class="brand-tag">Admin Dashboard</div>
+            </div>
+            <div class="topbar-right">
+                <div class="refresh-info">
+                    <div class="live-dot"></div>
+                    <span>Auto-refresh every 60s</span>
+                </div>
+                <div class="topbar-admin">Signed in as <span id="adminEmailDisplay">—</span></div>
+                <button class="btn-sm btn-refresh" id="refreshBtn">⟳ Refresh</button>
+                <button class="btn-sm btn-logout" id="logoutBtn">Sign Out</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+
+            <!-- Stats Row -->
+            <div class="stats-row" id="statsRow">
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-total">—</div>
+                        <div class="stat-lbl">Total Bookings</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-pending" style="color:var(--orange)">—</div>
+                        <div class="stat-lbl">Pending</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-confirmed" style="color:var(--green)">—</div>
+                        <div class="stat-lbl">Confirmed</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-today" style="color:var(--gold)">—</div>
+                        <div class="stat-lbl">Today's Bookings</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="table-section">
+                <div class="table-header">
+                    <div class="table-title">📒 All Bookings</div>
+                    <div class="table-controls">
+                        <input type="search" class="search-box" id="searchBox"
+                            placeholder="🔍  Search name, phone, car…" />
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table id="bookingsTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Customer</th>
+                                <th>Phone</th>
+                                <th>Car</th>
+                                <th>Service</th>
+                                <th>Preferred Date</th>
+                                <th>Time</th>
+                                <th>Received</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTbody">
+                            <tr>
+                                <td colspan="9">
+                                    <div class="table-empty">
+                                        <span class="spinner"></span> Loading bookings…
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination" id="pagination">
+                    <span id="paginationInfo">—</span>
+                    <div class="page-btns" id="pageButtons"></div>
+                </div>
+            </div>
+
+        </div><!-- /dashboard-content -->
+    </div><!-- /dashboard-page -->
+
+    <!-- Toast -->
+    <div class="toast" id="adminToast">
+        <span id="toastIcon">✅</span>
+        <span id="toastMsg">Done!</span>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <!-- Config -->
+    <script src="config.js"></script>
+    <!-- Admin JS -->
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
